@@ -61,21 +61,21 @@
             var email = document.getElementById('email').value;
             var telephone = document.getElementById('telephone').value;
 
-            var mesPatients = [
+            var mesPatients = 
                 {
                     id:i++,
                     nomPrenom:nomPrenom,
                     email: email,
                     telephone:telephone
                 }
-            ];
+            ;
 
             datas.push(mesPatients);
 
             console.log(datas);
 
             var montab = document.getElementById('tableauPatients');
-            var row = montab.insertRow(0);
+            var row = montab.insertRow(-1);
             var cell0 = row.insertCell(0);
             var cell1 = row.insertCell(1);
             var cell2 = row.insertCell(2);
