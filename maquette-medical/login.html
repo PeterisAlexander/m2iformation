@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <header>M2I Medical Login</header>
+    <main>
+        <h1>Veuillez vous authentifier</h1>
+        <hr>
+        <form method="post" action="dashboard.html">
+            <div class="form">
+                <label>Username / Email *</label>
+                <input type="text" value="" placeholder="Votre Email" name="username" required id="staticEmail">
+            </div>
+            <div class="form">
+                <label>Mot de passe *</label>
+                <input type="password" value="" placeholder="Votre mot de passe" name="pass" id="authtPassword"
+                    required>
+                <input class="form-check-input" type="checkbox" onclick="showPassword()" value="">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="genererPassword()">Générer Pass</button>
+            <button type="submit" onclick="authentifier()">Valider</button>
+        </form>
+    </main>
+</body>
+
+<script>
+    // var nom_user="";
+    // nom_user = recupereCookie("auth");
+
+    // alert(nom_user);
+
+    function saveInfosUser(nom, valeur, jour) {
+        if (jours) {
+            var date = new Date();
+            date.setTime(date.getTime() + (jpurs*24*60*60*1000));
+            var expires = "; expires="+date.toUTCString();
+        }
+        else var expires ="";
+        document.cookie = nom+"="+valeur+expires+"; path=/";
+        console.log("setCookie");
+    }
+
+    function recupereCookie(nom) {
+        var nomRc = nom + "=";
+        var ca = document.cookie.split(";");
+        for(var i = 0; i< ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) ==' ') c = c.substring(1, c.length);
+            if (c.indexOf(nomRc) == 0) return c.substring(nomRc.length, c.length);
+        }
+        return "inconnu";
+    }
+
+    function genererPassword() {
+        var alphaNumber = "abcdefghijklmnopqrstuvwxyz0123456789";
+        const charactersLength = alphaNumber.length;
+        const numbers = [8, 9, 10, 11, 12];
+        const ramdomLenght = numbers[Math.floor(Math.random() * numbers.length)];
+        let result = ' ';
+        for (let i = 0; i < ramdomLenght; i++) {
+            result += alphaNumber.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        console.log(result);
+        document.getElementById('authtPassword').value = result;
+    }
+
+    function showPassword() {
+        var x = document.getElementById("authtPassword");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+    function authentifier() {
+        var email = document.getElementById('staticEmail').value;
+        var password = document.getElementById('authtPassword').value;
+
+        console.log("email : " + email + "\npassword : " + password);
+
+        if (email == "admin" && password == "admin") {
+            alert("Connexion réussie");
+            //localStorage.setItem(email, password);
+            saveInfosUser("auth", email,"1");
+            //console.log(localStorage.setItem(email, password));
+        }
+        else {
+            alert("Echec de connexion");
+        }
+    }
+
+
+
+
+</script>
+
+</html>
